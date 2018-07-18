@@ -1,0 +1,17 @@
+### Scala template
+*.class
+*.log
+
+# build specific
+target/
+shared/
+
+# Scala-IDE specific
+.scala_dependencies
+
+# Idea IntelliJ
+.idea
+*.iml
+
+#Logging
+logs/
