@@ -1,4 +1,4 @@
-package com.wordpress.technicado.wordcount
+package com.wordpress.technicado.movielens
 
 import org.apache.hadoop.conf.Configuration
 import org.apache.hadoop.fs.Path
@@ -7,7 +7,7 @@ import org.apache.hadoop.mapreduce.Job
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat
 
-object WordCount  {
+object RatingsPerUser  {
   def main(args: Array[String]): Unit = {
 
     if(args.length != 2){
@@ -16,13 +16,13 @@ object WordCount  {
       System.exit(-1)
     }
     val conf = new Configuration
-    val job = Job.getInstance(conf, "Word Count")
-    job.setJarByClass(classOf[TokenizerMapper])
+    val job = Job.getInstance(conf, "Ratings per user")
+    job.setJarByClass(classOf[MovieMapper])
 
     FileInputFormat.addInputPath(job, new Path(args(0)))
 
-    job.setMapperClass(classOf[TokenizerMapper])
-    job.setReducerClass(classOf[IntSumReducer])
+    job.setMapperClass(classOf[MovieMapper])
+    job.setReducerClass(classOf[NumRatingsReducer])
 
     job.setOutputKeyClass(classOf[Text])
     job.setOutputValueClass(classOf[IntWritable])
